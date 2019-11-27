@@ -1,0 +1,192 @@
+﻿@using  FacturationApi.Models;
+@{
+    IFacturePdf pdf = Model;
+    var isNoTva = pdf.Services.Any<dynamic>(_ => _.Tva == 0);
+    var specifier = "N";
+}
+
+<html>
+<head>
+    <style>
+        html, body {
+            font-size: 14px;
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        .me {
+            display: inline-block;
+            width: 70%;
+            margin: 0;
+            padding: 0;
+            vertical-align: top;
+        }
+
+        .client {
+            display: inline-block;
+            width: 30%;
+            margin: 0;
+            padding: 0;
+            vertical-align: top;
+        }
+
+        .numero-facture {
+            margin-top: 30px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .date-creation {
+            margin-top: 20px;
+        }
+
+        .table {
+            margin-top: 20px;
+        }
+
+        .table {
+            width: 100%;
+            font-size: 12px;
+        }
+
+            .table thead tr {
+                background-color: lightgrey;
+            }
+
+            .table td {
+                text-align: right;
+            }
+
+            .table .description {
+                width: 60%;
+                text-align: left;
+            }
+
+        .paiement {
+            display: inline-block;
+            width: 70%;
+            vertical-align: top;
+            margin: 0;
+        }
+
+        .total {
+            background-color: lightgrey;
+            display: inline-block;
+            width: 30%;
+            vertical-align: top;
+            margin: 0;
+            padding: 10px;
+        }
+
+            .total .label, .total .value {
+                display: inline-block;
+                width: 50%;
+                vertical-align: top;
+                font-size: 14px;
+                font-weight: 400;
+            }
+
+            .total .value {
+                text-align: right;
+            }
+
+        .footer {
+            position: absolute;
+            bottom: 0px;
+            width: 100%;
+        }
+
+            .footer .legend {
+                text-align: center;
+                margin-bottom: 30px;
+            }
+
+        .penalite {
+            margin-top: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="me">
+        <div>@pdf.MyLastName @pdf.MyFirstName</div>
+        <div>@pdf.MyAddress</div>
+        <div>@pdf.MyPostCode @pdf.MyCity</div>
+        <div>@pdf.MyPhone</div>
+        <div>@pdf.MyEmail</div>
+        <div>N° TVA Intracommunautaire : @pdf.MyNumeroTva</div>
+        <div>Siret : @pdf.MySiret</div>
+    </div>
+
+    <div class="client">
+        <div>@pdf.RaisonSociale</div>
+        <div>@pdf.LastName @pdf.FirstName</div>
+        <div>@pdf.Street</div>
+        <div>@pdf.ZipCode @pdf.City</div>
+    </div>
+
+    <div class="numero-facture">
+        FACTURE N° @pdf.NumeroFacture
+    </div>
+    <div class="date-creation">
+        Date de création : @pdf.DateCreation?.ToShortDateString()
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="description">Désignation</th>
+                <th>Quantité</th>
+                <th>Prix Unité</th>
+                <th>Tva</th>
+                <th>Montant HT</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var service in pdf.Services)
+            {
+                <tr>
+                    <td class="description">@service.Description</td>
+                    <td>@service.Quantity?.ToString(specifier)</td>
+                    <td>@service.Price?.ToString(specifier)</td>
+                    <td>@(service.Tva == 0 ? "0*" : service.Tva?.ToString(specifier)) %</td>
+                    <td>@((service.Quantity * service.Price)?.ToString(specifier))</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="footer">
+        <div class="legend">
+            @if (isNoTva)
+            {
+                <div>*TVA non applicable, article 293 B du CGI.</div>
+            }
+        </div>
+        <div class="paiement">
+            <p>
+                Conditions de paiement : @pdf.MontantTTC.ToString(specifier) € à
+                payer avant le : @pdf.DateEcheance?.ToShortDateString() par virement.
+            </p>
+        </div>
+
+        <div class="total">
+            <div class="label">
+                <div>Total HT :</div>
+                <div>Total TVA :</div>
+                <div>Total TTC :</div>
+            </div>
+            <div class="value">
+                <div>@pdf.MontantHT.ToString(specifier) €</div>
+                <div>@pdf.MontantTva.ToString(specifier) €</div>
+                <div>@pdf.MontantTTC.ToString(specifier) €</div>
+            </div>
+        </div>
+        <div class="penalite">
+            Pénalités de retard = taux légal en vigueur, en sus d’une indemnité forfaitaire de 40€ pour frais de recouvrement.
+            Dans votre intérêt conservez vos factures sans limite de temps.
+            Dispensé d’immatriculation au registre du commerce et des sociétés (RCS) et au répertoire des métiers (RM).
+        </div>
+    </div>
+</body>
+</html>
