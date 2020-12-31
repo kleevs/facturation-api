@@ -148,7 +148,7 @@ namespace Web
                 app.UseDeveloperExceptionPage();
             }
 
-            if (Configuration.IsLocal)
+            if (true/*Configuration.IsLocal*/)
             {
                 var localProvider = provider as Db.LocalProvider;
                 localProvider.AccountProvider.Add(new Repository.Models.Account
