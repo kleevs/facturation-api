@@ -40,15 +40,19 @@ namespace FacturationApi.Api
 
             Error.ThrowIf<UserExitedError>(_provider.User.Where(_ => _.Email == email).Count() > 0);
 
-
             var now = _dateTimeService.UtcNow;
             var token = new Token { Email = email, Password = password, Created = now };
             var hash = _encryptor.Encrypt(token);
-            var link = $@"{_hostingEnvironment.BaseUrl}/accounts/{hash}";
-            _smtpServer.Send(email, "Création de compte", $"Cliquez sur ce lien pour confirmer votre inscription : <a href=\"{link}\">{link}</a>");
+            if (Create(hash))
+            {
+                var link = $@"{_hostingEnvironment.BaseUrl}/accounts/{hash}";
+                _smtpServer.Send(email, "Création de compte", $"Cliquez sur ce lien pour confirmer votre inscription : <a href=\"{link}\">{link}</a>");
 
-            _logger.Info($"Demande de création d'utilisateur envoyé à {email}.");
-            return true;
+                _logger.Info($"Demande de création d'utilisateur envoyé à {email}.");
+                return true;
+            }
+
+            return false;
         }
 
         public bool Create(string token)
