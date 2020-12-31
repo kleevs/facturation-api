@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2041
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FacturationApi", "src\FacturationApi\FacturationApi.csproj", "{386DBE6E-8DCF-4736-A6D4-A7E50DEAE3A7}"
 EndProject
@@ -17,13 +17,61 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infra", "infra", "{735A3481
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbContext", "src\DbContext\DbContext.csproj", "{A28B3325-4ACA-4AF7-B66C-F7CF8F44C868}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pdf", "src\Pdf\Pdf.csproj", "{A92BC79F-A154-4A00-9CCF-2869BC227F1C}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "example", "example", "{FBFBC35C-4F5B-4251-B0CC-886B76EBFBA2}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileSystem", "src\FileSystem\FileSystem.csproj", "{EEB859F5-BE9B-4A1E-8F66-EAA041FF8AF9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepositoryExample", "example\RepositoryExample\RepositoryExample.csproj", "{C5F12436-0F31-48B2-AD00-860197E427D9}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cicd", "cicd", "{858E4A17-6E70-48BC-A339-81D0E6352A3E}"
+	ProjectSection(SolutionItems) = preProject
+		certbot.txt = certbot.txt
+		cicd\docker-build = cicd\docker-build
+		cicd\docker-compose.yml = cicd\docker-compose.yml
+		cicd\example.env = cicd\example.env
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Smtp", "src\Smtp\Smtp.csproj", "{1E5A0585-FD51-4FA8-8DF3-7876B7D7918B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "api", "api", "{3323A485-C377-4460-9930-85852121B483}"
+	ProjectSection(SolutionItems) = preProject
+		cicd\api\Dockerfile = cicd\api\Dockerfile
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "db", "db", "{A8642122-BEBA-4913-AF03-4EA6D35D7A04}"
+	ProjectSection(SolutionItems) = preProject
+		cicd\db\Dockerfile = cicd\db\Dockerfile
+		cicd\db\entrypoint = cicd\db\entrypoint
+		cicd\db\init.sql = cicd\db\init.sql
+		cicd\db\mysqld.cnf = cicd\db\mysqld.cnf
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ged", "ged", "{04981EA7-A3DE-4EAF-85D4-CAC4743C4FE7}"
+	ProjectSection(SolutionItems) = preProject
+		cicd\ged\Dockerfile = cicd\ged\Dockerfile
+		cicd\ged\entrypoint = cicd\ged\entrypoint
+		cicd\ged\vsftpd = cicd\ged\vsftpd
+		cicd\ged\vsftpd.conf = cicd\ged\vsftpd.conf
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "smtp", "smtp", "{9C5B8B66-6C10-4563-9EBD-0387A5C23840}"
+	ProjectSection(SolutionItems) = preProject
+		cicd\smtp\Dockerfile = cicd\smtp\Dockerfile
+		cicd\smtp\entrypoint = cicd\smtp\entrypoint
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "front", "front", "{D0524B66-BD24-4BD3-8543-E0DDB32B7BC5}"
+	ProjectSection(SolutionItems) = preProject
+		cicd\front\Dockerfile = cicd\front\Dockerfile
+	EndProjectSection
+EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "Front", "src\Front\Front.njsproj", "{71C41D0F-D4C1-41D6-AE0B-1D49BC1D58C9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "gateway", "gateway", "{AA3B28F7-2AFD-41D3-83E0-8FFEB989F2D6}"
+	ProjectSection(SolutionItems) = preProject
+		cicd\gateway\Dockerfile = cicd\gateway\Dockerfile
+		cicd\gateway\entrypoint = cicd\gateway\entrypoint
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Excel", "src\Excel\Excel.csproj", "{085BD000-3E02-43D2-8CBC-3D7F49E0868B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pdf", "src\Pdf\Pdf.csproj", "{F8793030-A0EE-48EC-88B3-13353958CE31}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,18 +91,26 @@ Global
 		{A28B3325-4ACA-4AF7-B66C-F7CF8F44C868}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A28B3325-4ACA-4AF7-B66C-F7CF8F44C868}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A28B3325-4ACA-4AF7-B66C-F7CF8F44C868}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A92BC79F-A154-4A00-9CCF-2869BC227F1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A92BC79F-A154-4A00-9CCF-2869BC227F1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A92BC79F-A154-4A00-9CCF-2869BC227F1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A92BC79F-A154-4A00-9CCF-2869BC227F1C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EEB859F5-BE9B-4A1E-8F66-EAA041FF8AF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EEB859F5-BE9B-4A1E-8F66-EAA041FF8AF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EEB859F5-BE9B-4A1E-8F66-EAA041FF8AF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EEB859F5-BE9B-4A1E-8F66-EAA041FF8AF9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C5F12436-0F31-48B2-AD00-860197E427D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C5F12436-0F31-48B2-AD00-860197E427D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C5F12436-0F31-48B2-AD00-860197E427D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C5F12436-0F31-48B2-AD00-860197E427D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E5A0585-FD51-4FA8-8DF3-7876B7D7918B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E5A0585-FD51-4FA8-8DF3-7876B7D7918B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E5A0585-FD51-4FA8-8DF3-7876B7D7918B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E5A0585-FD51-4FA8-8DF3-7876B7D7918B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71C41D0F-D4C1-41D6-AE0B-1D49BC1D58C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71C41D0F-D4C1-41D6-AE0B-1D49BC1D58C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71C41D0F-D4C1-41D6-AE0B-1D49BC1D58C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71C41D0F-D4C1-41D6-AE0B-1D49BC1D58C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{085BD000-3E02-43D2-8CBC-3D7F49E0868B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{085BD000-3E02-43D2-8CBC-3D7F49E0868B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{085BD000-3E02-43D2-8CBC-3D7F49E0868B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{085BD000-3E02-43D2-8CBC-3D7F49E0868B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8793030-A0EE-48EC-88B3-13353958CE31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8793030-A0EE-48EC-88B3-13353958CE31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8793030-A0EE-48EC-88B3-13353958CE31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8793030-A0EE-48EC-88B3-13353958CE31}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,9 +122,17 @@ Global
 		{AEAA3DD6-59E8-49B5-8CDA-C37F17294884} = {9E5A3CEC-52B9-43CA-A75F-945F834FDC59}
 		{735A3481-4CBD-4BA0-B054-5BBA3433427A} = {CC1FBAA4-B782-4732-B0E4-044BF48B4DEA}
 		{A28B3325-4ACA-4AF7-B66C-F7CF8F44C868} = {735A3481-4CBD-4BA0-B054-5BBA3433427A}
-		{A92BC79F-A154-4A00-9CCF-2869BC227F1C} = {735A3481-4CBD-4BA0-B054-5BBA3433427A}
 		{EEB859F5-BE9B-4A1E-8F66-EAA041FF8AF9} = {735A3481-4CBD-4BA0-B054-5BBA3433427A}
-		{C5F12436-0F31-48B2-AD00-860197E427D9} = {FBFBC35C-4F5B-4251-B0CC-886B76EBFBA2}
+		{1E5A0585-FD51-4FA8-8DF3-7876B7D7918B} = {735A3481-4CBD-4BA0-B054-5BBA3433427A}
+		{3323A485-C377-4460-9930-85852121B483} = {858E4A17-6E70-48BC-A339-81D0E6352A3E}
+		{A8642122-BEBA-4913-AF03-4EA6D35D7A04} = {858E4A17-6E70-48BC-A339-81D0E6352A3E}
+		{04981EA7-A3DE-4EAF-85D4-CAC4743C4FE7} = {858E4A17-6E70-48BC-A339-81D0E6352A3E}
+		{9C5B8B66-6C10-4563-9EBD-0387A5C23840} = {858E4A17-6E70-48BC-A339-81D0E6352A3E}
+		{D0524B66-BD24-4BD3-8543-E0DDB32B7BC5} = {858E4A17-6E70-48BC-A339-81D0E6352A3E}
+		{71C41D0F-D4C1-41D6-AE0B-1D49BC1D58C9} = {9E5A3CEC-52B9-43CA-A75F-945F834FDC59}
+		{AA3B28F7-2AFD-41D3-83E0-8FFEB989F2D6} = {858E4A17-6E70-48BC-A339-81D0E6352A3E}
+		{085BD000-3E02-43D2-8CBC-3D7F49E0868B} = {735A3481-4CBD-4BA0-B054-5BBA3433427A}
+		{F8793030-A0EE-48EC-88B3-13353958CE31} = {735A3481-4CBD-4BA0-B054-5BBA3433427A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0C284B11-AF5B-4312-B1F1-4BEACA6CBB9C}

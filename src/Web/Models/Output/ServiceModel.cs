@@ -14,7 +14,7 @@ namespace Web.Models.Output
 
         public static Func<IService, ServiceModel> Map = (service) => new ServiceModel
         {
-            Id = service.Id.Value,
+            Id = service.Id,
             Description = service.Description,
             Price = service.Price,
             Quantity = service.Quantity,

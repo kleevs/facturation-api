@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace Web.Models.Input
 {
@@ -16,7 +15,7 @@ namespace Web.Models.Input
     public class PieceJointeModel : IPieceJointe
     {
         private IEnumerable<IFile> _documentsCached;
-        public int? Id { get; set; }
+        public int Id { get; set; }
         public IEnumerable<IFormFile> Documents { get; set; }
 
         IEnumerable<IFile> IPieceJointe.Documents => _documentsCached = _documentsCached ?? Documents.Select(_ => 

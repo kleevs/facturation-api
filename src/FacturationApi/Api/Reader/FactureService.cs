@@ -1,7 +1,7 @@
 ﻿using FacturationApi.Models;
 using FacturationApi.Spi;
 using System.Collections.Generic;
-using System.Linq;
+using FacturationApi.Linq2;
 
 namespace FacturationApi.Api
 {
@@ -14,7 +14,13 @@ namespace FacturationApi.Api
             _factureReader = factureReader;
         }
 
-        public IEnumerable<IFactureOutput> List() => _factureReader.FactureOutput.Select(FactureRule.RuleFactureOutput);
+        public IEnumerable<IFactureOutput> List() => _factureReader.FactureOutput.Select(facture => 
+        {
+            facture.DateEcheanceOption = facture.DateEcheance.HasValue && facture.DateCreation.HasValue &&
+                (facture.DateEcheance.Value - facture.DateCreation.Value).Days >= 45 ? 1 : 0;
+
+            return facture;
+        });
     }
 
     public class FactureDetailService
@@ -28,10 +34,13 @@ namespace FacturationApi.Api
             _fileManager = fileManager;
         }
 
-        public IEnumerable<IFactureFull> GetById(int id) => _factureReader.FactureFull.Where(_ => _.Id == id)
-            .Select(FactureRule.RuleFactureOutput)
+        public IEnumerable<IFactureFull> GetById(int id) =>
+            _factureReader.FactureFull.Where(_ => _.Id == id)
             .Select(facture =>
             {
+                facture.DateEcheanceOption = facture.DateEcheance.HasValue && facture.DateCreation.HasValue &&
+                (facture.DateEcheance.Value - facture.DateCreation.Value).Days >= 45 ? 1 : 0;
+
                 facture.PieceJointes = _fileManager.Files($"/pj/id{id}").ToList();
                 return facture;
             });

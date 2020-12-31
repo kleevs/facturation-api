@@ -14,6 +14,5 @@ namespace Repository.Models
         public decimal? Quantity { get; set; }
         public decimal? Tva { get; set; }
         public string Unite { get; set; }
-        int? IIdentifiable.Id { get => Id == 0 ? null : (int?)Id; set => Id = value ?? 0; }
     }
 }

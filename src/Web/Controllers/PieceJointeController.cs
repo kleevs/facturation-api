@@ -10,20 +10,15 @@ namespace Web.Controllers
 {
     public class PieceJointeController : ControllerBase
     {
-        private readonly Provider _provider;
+        private readonly IProvider _provider;
         private readonly AppConfiguration _configuration;
         private readonly FileManager _fileManager;
 
-        public PieceJointeController(Db.Provider provider, AppConfiguration configuration)
+        public PieceJointeController(Db.IProvider provider, AppConfiguration configuration)
         {
             _provider = provider;
             _configuration = configuration;
-            _fileManager = new FileManager(
-                _configuration.FtpHost,
-                _configuration.FtpPort,
-                _configuration.FtpUser,
-                _configuration.FtpPassword
-            );
+            _fileManager = new FileManager(_configuration.ConnectionStringFtp);
         }
 
         [HttpPut]
@@ -32,6 +27,15 @@ namespace Web.Controllers
         {
             new PieceJointeWriterService(_provider, _fileManager)
                 .Save(pieceJointe);
+            await _fileManager.SaveChangesAsync();
+        }
+
+        [HttpDelete]
+        [Route("facturation/{id}/piecejointe/{filename}")]
+        public async Task Delete(int id, string filename)
+        {
+            new PieceJointeWriterService(_provider, _fileManager)
+                .Delete(id, filename);
             await _fileManager.SaveChangesAsync();
         }
 

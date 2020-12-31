@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Web</name>
+    </assembly>
+    <members>
+        <member name="T:Web.Controllers.AccountsController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Web.Controllers.AccountsController.Index">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Web.Controllers.AccountsController.Login(Web.Models.Input.LoginInputModel)">
+            <summary>
+            
+            </summary>
+            <param name="form"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Web.Controllers.AccountsController.Logout">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Web.Controllers.AccountsController.Create(Web.Models.Input.LoginInputModel)">
+            <summary>
+            
+            </summary>
+            <param name="form"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Web.Controllers.AccountsController.Info(System.Int32,Web.Models.Input.UserInputModel)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <param name="form"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Web.Controllers.AccountsController.Create(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Web.Configuration">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Web.AppConfiguration">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Web.Startup">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Web.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime. Use this method to add services to the container.
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:Web.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Db.IProvider)">
+            <summary>
+            This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+            <param name="provider"></param>
+        </member>
+        <member name="T:Web.Tools.PathPrefixInsertDocumentFilter">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Web.Tools.PathPrefixInsertDocumentFilter.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="prefix"></param>
+        </member>
+        <member name="M:Web.Tools.PathPrefixInsertDocumentFilter.Apply(Microsoft.OpenApi.Models.OpenApiDocument,Swashbuckle.AspNetCore.SwaggerGen.DocumentFilterContext)">
+            <summary>
+            
+            </summary>
+            <param name="swaggerDoc"></param>
+            <param name="context"></param>
+        </member>
+    </members>
+</doc>

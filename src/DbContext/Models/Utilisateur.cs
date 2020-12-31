@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Repository.Models
 {
-    public partial class Utilisateur : Identifiable, ILogin
+    public partial class Utilisateur : ILogin
     {
         [Key]
-        public override int Id { get; set; }
+        public int Id { get; set; }
         public string Email { get; set; }
     }
 }

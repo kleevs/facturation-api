@@ -1,4 +1,5 @@
 ﻿using FacturationApi.Models;
+using FacturationApi.Rules;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -6,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Repository.Models
 {
-    public partial class Facture : Identifiable, IFacture, IFactureOutput, IFacturePdf, IFactureFull, IFactureDb
+    public partial class Facture : IFacture, IFactureOutput, IFacturePdf, IFactureFull, IFactureDb
     {
         public Facture()
         {
@@ -14,7 +15,7 @@ namespace Repository.Models
         }
 
         [Key]
-        public override int Id { get; set; }
+        public int Id { get; set; }
         public int UserDataId { get; set; }
         public int Numero { get; set; }
         public string RaisonSociale { get; set; }
@@ -34,21 +35,21 @@ namespace Repository.Models
         public UtilisateurData UserData { get; set; }
 
         [NotMapped] public int? DateEcheanceOption { get; set; }
-        [NotMapped] public bool IsFinal { get; set; }
-        [NotMapped] public bool IsPaye { get; set; }
-        [NotMapped] public string NumeroFacture { get; set; }
-        [NotMapped] public decimal MontantHT { get; set; }
-        [NotMapped] public decimal MontantTva { get; set; }
-        [NotMapped] public decimal MontantTTC { get; set; }
-        [NotMapped] public string MyLastName { get; set; }
-        [NotMapped] public string MyFirstName { get; set; }
-        [NotMapped] public string MyAddress { get; set; }
-        [NotMapped] public string MyPostCode { get; set; }
-        [NotMapped] public string MyCity { get; set; }
-        [NotMapped] public string MyPhone { get; set; }
-        [NotMapped] public string MyEmail { get; set; }
-        [NotMapped] public string MyNumeroTva { get; set; }
-        [NotMapped] public string MySiret { get; set; }
+        [NotMapped] public bool IsFinal => FactureRules.IsFinal(this);
+        [NotMapped] public bool IsPaye => FactureRules.IsPaye(this);
+        [NotMapped] public string NumeroFacture => FactureRules.NumeroFacture(this);
+        [NotMapped] public decimal MontantHT => FactureRules.MontantHT(this);
+        [NotMapped] public decimal MontantTva => FactureRules.MontantTVA(this);
+        [NotMapped] public decimal MontantTTC => FactureRules.MontantTTC(this);
+        [NotMapped] public string MyLastName => UserData?.LastName;
+        [NotMapped] public string MyFirstName => UserData?.FirstName;
+        [NotMapped] public string MyAddress => UserData?.Street;
+        [NotMapped] public string MyPostCode => UserData?.ZipCode;
+        [NotMapped] public string MyCity => UserData?.City;
+        [NotMapped] public string MyPhone => UserData?.Phone;
+        [NotMapped] public string MyEmail => UserData?.Email;
+        [NotMapped] public string MyNumeroTva => UserData?.NumTva;
+        [NotMapped] public string MySiret => UserData?.Siret;
         [NotMapped] public IEnumerable<IFileDb> PieceJointes { get; set; }
 
         IService IFactureDb.NewService => new Service();

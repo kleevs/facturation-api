@@ -1,5 +1,6 @@
 ﻿using FacturationApi.Spi;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace FacturationApi.Api
 {
@@ -20,24 +21,13 @@ namespace FacturationApi.Api
             _pdfGenerator = pdfGenerator;
         }
 
-        public byte[] Generate(int id)
+        public Task<byte[]> Generate(int id)
         {
             var facture = _factureReader.FacturePdf.Where(_ => _.Id == id).FirstOrDefault();
             var user = _userReader.User.Where(_ => _.Id == facture.UserDataId).FirstOrDefault();
 
-            facture = FactureRule.RuleFactureOutput(facture);
-            facture.MontantHT = facture.Services.Sum(_ => (_.Price ?? 0) * (_.Quantity ?? 0));
-            facture.MontantTva = facture.Services.Sum(_ => (_.Tva ?? 0) * (_.Price ?? 0) * (_.Quantity ?? 0) / 100);
-            facture.MontantTTC = facture.MontantHT + facture.MontantTva;
-            facture.MyLastName = user.LastName;
-            facture.MyFirstName = user.FirstName;
-            facture.MyAddress = user.Street;
-            facture.MyPostCode = user.ZipCode;
-            facture.MyCity = user.City;
-            facture.MyPhone = user.Phone;
-            facture.MyEmail = user.Email;
-            facture.MyNumeroTva = user.NumTva;
-            facture.MySiret = user.Siret;
+            facture.DateEcheanceOption = facture.DateEcheance.HasValue && facture.DateCreation.HasValue && 
+                (facture.DateEcheance.Value - facture.DateCreation.Value).Days >= 45 ? 1 : 0;
 
             return _pdfGenerator.Generate(facture);
         }

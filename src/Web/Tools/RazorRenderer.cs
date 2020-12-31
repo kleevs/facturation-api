@@ -1,7 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Abstractions;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Routing;
+using Pdf;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,76 +16,49 @@ using System.Threading.Tasks;
 
 namespace Web.Tools
 {
-    //public class RazorRenderer
-    //{
-    //    private readonly IViewEngine _viewEngine;
-
-    //    public RazorRenderer(IViewEngine viewEngine)
-    //    {
-    //        _viewEngine = viewEngine;
-    //    }
-
-    //    public async Task<string> RenderViewAsync<TModel>(string viewName, TModel model)
-    //    {
-    //        using (var writer = new StringWriter())
-    //        {
-    //            ViewEngineResult viewResult = _viewEngine.(controller.ControllerContext, viewName, true);
-
-    //            if (viewResult.Success == false)
-    //            {
-    //                return $"A view with the name {viewName} could not be found";
-    //            }
-
-    //            ViewContext viewContext = new ViewContext(
-    //                controller.ControllerContext,
-    //                viewResult.View,
-    //                controller.ViewData,
-    //                controller.TempData,
-    //                writer,
-    //                new HtmlHelperOptions()
-    //            );
-
-    //            await viewResult.View.RenderAsync(viewContext);
-
-    //            return writer.GetStringBuilder().ToString();
-    //        }
-    //    }
-    //}
-
-    public static class ControllerExtensions
+    public class RazorRenderer : IRazorRenderer
     {
-        public static async Task<string> RenderViewAsync<TModel>(this Controller controller, string viewName, TModel model, bool partial = false)
+        private readonly IRazorViewEngine _razorViewEngine;
+        private readonly ITempDataProvider _tempDataProvider;
+        private readonly IServiceProvider _serviceProvider;
+
+        public RazorRenderer(IRazorViewEngine razorViewEngine, ITempDataProvider tempDataProvider, IServiceProvider serviceProvider)
         {
-            if (string.IsNullOrEmpty(viewName))
+            _razorViewEngine = razorViewEngine;
+            _tempDataProvider = tempDataProvider;
+            _serviceProvider = serviceProvider;
+        }
+
+        public async Task<string> RenderViewAsync<TModel>(string viewName, TModel model)
+        {
+            var httpContext = new DefaultHttpContext { RequestServices = _serviceProvider };
+            var actionContext = new ActionContext(httpContext, new RouteData(), new ActionDescriptor());
+
+            using (var sw = new StringWriter())
             {
-                viewName = controller.ControllerContext.ActionDescriptor.ActionName;
-            }
+                var viewResult = _razorViewEngine.GetView("", viewName, false);
 
-            controller.ViewData.Model = model;
-
-            using (var writer = new StringWriter())
-            {
-                IViewEngine viewEngine = controller.HttpContext.RequestServices.GetService(typeof(ICompositeViewEngine)) as ICompositeViewEngine;
-                ViewEngineResult viewResult = viewEngine.FindView(controller.ControllerContext, viewName, !partial);
-
-
-                if (viewResult.Success == false)
+                if (viewResult.View == null)
                 {
-                    return $"A view with the name {viewName} could not be found";
+                    throw new ArgumentNullException($"{viewName} does not match any available view");
                 }
 
-                ViewContext viewContext = new ViewContext(
-                    controller.ControllerContext,
+                var viewDictionary = new ViewDataDictionary(new EmptyModelMetadataProvider(), new ModelStateDictionary())
+                {
+                    Model = model
+                };
+
+                var viewContext = new ViewContext(
+                    actionContext,
                     viewResult.View,
-                    controller.ViewData,
-                    controller.TempData,
-                    writer,
+                    viewDictionary,
+                    new TempDataDictionary(actionContext.HttpContext, _tempDataProvider),
+                    sw,
                     new HtmlHelperOptions()
                 );
 
                 await viewResult.View.RenderAsync(viewContext);
-
-                return writer.GetStringBuilder().ToString();
+                return sw.ToString();
             }
         }
     }

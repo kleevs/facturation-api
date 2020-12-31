@@ -11,7 +11,7 @@ namespace Web.Models.Output
 
         public static Func<IPaiement, PaiementModel> Map = (paiement) => new PaiementModel
         {
-            Id = paiement.Id.Value,
+            Id = paiement.Id,
             DateCreation = paiement.DateCreation,
             Value = paiement.Value
         };

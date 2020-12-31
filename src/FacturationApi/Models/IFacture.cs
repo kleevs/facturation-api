@@ -42,16 +42,16 @@ namespace FacturationApi.Models
         string ZipCode { get; }
         string Country { get; }
         string City { get; }
+        int Numero { get; }
         IEnumerable<IService> Services { get; }
         IEnumerable<IPaiement> Paiements { get; }
     }
 
     public interface IFactureOutput : IFacture
     {
-        bool IsFinal { get; set; }
-        bool IsPaye { get; set; }
-        string NumeroFacture { get; set; }
-        int Numero { get; }
+        bool IsFinal { get; }
+        bool IsPaye { get; }
+        string NumeroFacture { get; }
     }
 
     public interface IFactureFull : IFactureOutput
@@ -61,17 +61,17 @@ namespace FacturationApi.Models
 
     public interface IFacturePdf : IFactureOutput
     {
-        decimal MontantHT { get; set; }
-        decimal MontantTva { get; set; }
-        decimal MontantTTC { get; set; }
-        string MyLastName { get; set; }
-        string MyFirstName { get; set; }
-        string MyAddress { get; set; }
-        string MyPostCode { get; set; }
-        string MyCity { get; set; }
-        string MyPhone { get; set; }
-        string MyEmail { get; set; }
-        string MyNumeroTva { get; set; }
-        string MySiret { get; set; }
+        decimal MontantHT { get; }
+        decimal MontantTva { get; }
+        decimal MontantTTC { get; }
+        string MyLastName { get; }
+        string MyFirstName { get; }
+        string MyAddress { get; }
+        string MyPostCode { get; }
+        string MyCity { get; }
+        string MyPhone { get; }
+        string MyEmail { get; }
+        string MyNumeroTva { get; }
+        string MySiret { get; }
     }
 }

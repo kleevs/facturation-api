@@ -1,9 +1,10 @@
 ﻿using FacturationApi.Models;
+using System.Threading.Tasks;
 
 namespace FacturationApi.Spi
 {
     public interface IPdfGenerator
     {
-        byte[] Generate(IFacturePdf facturePdf);
+        Task<byte[]> Generate(IFacturePdf facturePdf);
     }
 }

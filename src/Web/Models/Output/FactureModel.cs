@@ -8,6 +8,7 @@ namespace Web.Models.Output
     public class FactureModel
     {
         public int Id { get; set; }
+        public int Numero { get; set; }
         public int UserDataId { get; set; }
         public string RaisonSociale { get; set; }
         public DateTime? DateCreation { get; set; }
@@ -23,13 +24,16 @@ namespace Web.Models.Output
         public string City { get; set; }
         public bool IsFinal { get; set; }
         public bool IsPaye { get; set; }
+        public string NumeroFacture { get; set; }
         public IEnumerable<ServiceModel> Services { get; set; }
         public IEnumerable<PaiementModel> Paiements { get; set; }
         public IEnumerable<string> PieceJointes { get; set; }
 
         public static Func<IFactureOutput, FactureModel> Map = (facture) => new FactureModel
         {
-            Id = facture.Id.Value,
+            Id = facture.Id,
+            Numero = facture.Numero,
+            NumeroFacture = facture.NumeroFacture,
             UserDataId = facture.UserDataId,
             RaisonSociale = facture.RaisonSociale,
             DateCreation = facture.DateCreation,
@@ -51,7 +55,9 @@ namespace Web.Models.Output
 
         public static Func<IFactureFull, FactureModel> MapFull = (facture) => new FactureModel
         {
-            Id = facture.Id.Value,
+            Id = facture.Id,
+            Numero = facture.Numero,
+            NumeroFacture = facture.NumeroFacture,
             UserDataId = facture.UserDataId,
             RaisonSociale = facture.RaisonSociale,
             DateCreation = facture.DateCreation,

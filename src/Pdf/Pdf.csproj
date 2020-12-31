@@ -1,24 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Template\Facture.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Template\Facture.cshtml">
-      <Generator></Generator>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="itext7.pdfhtml" Version="2.1.5" />
-    <PackageReference Include="NVelocity" Version="1.2.0" />
-    <PackageReference Include="RazorEngine.NetCore" Version="2.2.4" />
+    <PackageReference Include="itext7.pdfhtml" Version="2.1.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>

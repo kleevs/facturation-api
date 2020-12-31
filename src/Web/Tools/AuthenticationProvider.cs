@@ -18,22 +18,22 @@ namespace Web.Tools
         {
             _httpContextAccessor = httpContextAccessor;
 
-            var userId = httpContextAccessor.HttpContext.User.Claims
+            var userId = httpContextAccessor.HttpContext?.User?.Claims
                 .Where(_ => _.Type == ClaimTypes.NameIdentifier)
                 .Select(_ => _.Value)
                 .Select(int.Parse)
                 .FirstOrDefault();
 
-            var email = httpContextAccessor.HttpContext.User.Claims
+            var email = httpContextAccessor.HttpContext?.User?.Claims
                 .Where(_ => _.Type == ClaimTypes.Name)
                 .Select(_ => _.Value)
                 .FirstOrDefault();
 
-            Current = new Login
+            Current = userId.HasValue ? new Login
             {
-                Id = userId,
+                Id = userId.Value,
                 Email = email
-            };
+            } : null;
         }
 
         public ILogin Current { get; private set; }
@@ -63,7 +63,7 @@ namespace Web.Tools
         private class Login : ILogin
         {
             public string Email { get; set; }
-            public int? Id { get; set; }
+            public int Id { get; set; }
         }
     }
 }

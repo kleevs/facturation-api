@@ -6,9 +6,9 @@ namespace Web.Controllers
 {
     public class PaiementController : ControllerBase
     {
-        private readonly Db.Provider _provider;
+        private readonly Db.IProvider _provider;
 
-        public PaiementController(Db.Provider provider)
+        public PaiementController(Db.IProvider provider)
         {
             _provider = provider;
         }

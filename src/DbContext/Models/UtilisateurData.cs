@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Repository.Models
 {
-    public partial class UtilisateurData : Identifiable, IUser, IUserFilterable
+    public partial class UtilisateurData : IUser, IUserFilterable, IUserInfoDb
     {
         [Key]
-        public override int Id { get; set; }
+        public int Id { get; set; }
         public int UserId { get; set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }

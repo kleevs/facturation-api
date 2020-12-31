@@ -11,6 +11,5 @@ namespace Repository.Models
         public int? FactureId { get; set; }
         public DateTime? DateCreation { get; set; }
         public decimal? Value { get; set; }
-        int? IIdentifiable.Id { get => Id == 0 ? null : (int?)Id; set => Id = value ?? 0; }
     }
 }

@@ -7,6 +7,8 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
+using Repository.Models;
 
 namespace Web
 {
@@ -14,7 +16,8 @@ namespace Web
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            var host = CreateWebHostBuilder(args).Build();
+            host.Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
@@ -23,7 +26,7 @@ namespace Web
                 {
                     config.AddEnvironmentVariables("APP_");
                 })
-                .UseUrls("http://*:80")
+                .UseUrls("http://*:80"/*, "https://*:443"*/)
                 .UseStartup<Startup>();
     }
 }

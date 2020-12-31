@@ -1,0 +1,162 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SharpCompress" Version="0.26.0" />
+    <PackageReference Include="System.CodeDom" Version="4.7.0" />
+    <PackageReference Include="System.IO.Compression" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FacturationApi\FacturationApi.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Template\Recette\docProps\app_xml.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>app_xml.cs</LastGenOutput>
+    </None>
+    <None Update="Template\Recette\docProps\core_xml.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>core_xml.cs</LastGenOutput>
+    </None>
+    <None Update="Template\Recette\xl\calcChain_xml.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>calcChain_xml.cs</LastGenOutput>
+    </None>
+    <None Update="Template\Recette\xl\sharedStrings_xml.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>sharedStrings_xml.cs</LastGenOutput>
+    </None>
+    <None Update="Template\Recette\xl\styles_xml.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>styles_xml.cs</LastGenOutput>
+    </None>
+    <None Update="Template\Recette\xl\theme\theme1_xml.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>theme1_xml.cs</LastGenOutput>
+    </None>
+    <None Update="Template\Recette\xl\workbook_xml.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>workbook_xml.cs</LastGenOutput>
+    </None>
+    <None Update="Template\Recette\xl\worksheets\sheet1_xml.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>sheet1_xml.cs</LastGenOutput>
+    </None>
+    <None Update="Template\Recette\xl\worksheets\sheet2_xml.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>sheet2_xml.cs</LastGenOutput>
+    </None>
+    <None Update="Template\Recette\xl\worksheets\sheet3_xml.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>sheet3_xml.cs</LastGenOutput>
+    </None>
+    <None Update="Template\Recette\xl\worksheets\sheet4_xml.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>sheet4_xml.cs</LastGenOutput>
+    </None>
+    <None Update="Template\Recette\xl\worksheets\sheet5_xml.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>sheet5_xml.cs</LastGenOutput>
+    </None>
+    <None Update="Template\Recette\xl\_rels\workbook_xml_rels.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>workbook_xml_rels.cs</LastGenOutput>
+    </None>
+    <None Update="Template\Recette\Content_Types_xml.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Content_Types_xml.cs</LastGenOutput>
+    </None>
+    <None Update="Template\Recette\_rels\rels.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>rels.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Template\Recette\Content_Types_xml.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Content_Types_xml.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Template\Recette\docProps\app_xml.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>app_xml.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Template\Recette\docProps\core_xml.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>core_xml.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Template\Recette\xl\calcChain_xml.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>calcChain_xml.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Template\Recette\xl\sharedStrings_xml.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>sharedStrings_xml.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Template\Recette\xl\styles_xml.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>styles_xml.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Template\Recette\xl\theme\theme1_xml.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>theme1_xml.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Template\Recette\xl\workbook_xml.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>workbook_xml.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Template\Recette\xl\worksheets\sheet1_xml.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>sheet1_xml.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Template\Recette\xl\worksheets\sheet2_xml.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>sheet2_xml.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Template\Recette\xl\worksheets\sheet3_xml.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>sheet3_xml.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Template\Recette\xl\worksheets\sheet4_xml.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>sheet4_xml.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Template\Recette\xl\worksheets\sheet5_xml.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>sheet5_xml.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Template\Recette\xl\_rels\workbook_xml_rels.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>workbook_xml_rels.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Template\Recette\_rels\rels.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>rels.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>

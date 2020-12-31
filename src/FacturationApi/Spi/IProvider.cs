@@ -14,14 +14,15 @@ namespace FacturationApi.Spi
     public interface IFactureDbProvider
     {
         IQueryable<IFactureDb> Facture { get; }
-        IFactureDb NewFacture();
+        IFactureDb New();
+        void Remove(IFactureDb item);
     }
 
     public interface IPaiementProvider
     {
         IQueryable<IPaiementDb> Paiement { get; }
-        IPaiementDb NewPaiement();
-        void RemovePaiement(IPaiementDb item);
+        IPaiementDb New();
+        void Remove(IPaiementDb item);
     }
 
     public interface IUserProvider
@@ -30,6 +31,8 @@ namespace FacturationApi.Spi
         IQueryable<ILogin> Login { get; }
         IQueryable<IAuthenticateLogin> AuthenticateLogin { get; }
         IQueryable<IUserFilterable> IUserFilterable { get; }
+        IUserDb NewUser();
+        IUserInfoDb NewUserInfo();
     }
 
     public interface IAuthenticationProvider
@@ -41,6 +44,6 @@ namespace FacturationApi.Spi
     {
         IQueryable<IFileDb> Files(string path);
         IFileDb NewFile();
-        void RemoveFile(IFileDb item);
+        void RemoveFile(string filename);
     }
 }

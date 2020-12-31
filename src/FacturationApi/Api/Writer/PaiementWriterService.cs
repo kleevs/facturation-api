@@ -19,10 +19,10 @@ namespace FacturationApi.Api
         public IPaiementDb Save(IPaiement paiement)
         {
             var entity = _provider.Paiement.FirstOrDefault(_ => _.Id == paiement.Id);
-            if (entity == null && !paiement.Id.HasValue)
+            if (entity == null && paiement.Id <= 0)
             {
-                entity = _provider.NewPaiement();
-                entity.DateCreation = DateTime.UtcNow;
+                entity = _provider.New();
+                entity.DateCreation = paiement.DateCreation ?? DateTime.UtcNow;
                 entity.FactureId = paiement.FactureId;
             }
 
@@ -32,6 +32,6 @@ namespace FacturationApi.Api
         }
 
         public void Delete(int paiementId) =>
-            _provider.RemovePaiement(_provider.Paiement.Where(_ => _.Id == paiementId).FirstOrDefault());
+            _provider.Remove(_provider.Paiement.Where(_ => _.Id == paiementId).FirstOrDefault());
     }
 }
