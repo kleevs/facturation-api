@@ -72,7 +72,7 @@ namespace Web
             services.AddHttpContextAccessor();
             var healthchecks = services.AddHealthChecks();
 
-            if (true/*isLocal*/) 
+            if (isLocal) 
             {
                 services.AddScoped<Db.IProvider, Db.LocalProvider>();
                 services.AddDbContext<Db.LocalProvider>(options => options.UseInMemoryDatabase("database"));
@@ -148,7 +148,7 @@ namespace Web
                 app.UseDeveloperExceptionPage();
             }
 
-            if (true/*Configuration.IsLocal*/)
+            if (Configuration.IsLocal)
             {
                 var localProvider = provider as Db.LocalProvider;
                 localProvider.AccountProvider.Add(new Repository.Models.Account

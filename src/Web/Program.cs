@@ -26,7 +26,7 @@ namespace Web
                 {
                     config.AddEnvironmentVariables("APP_");
                 })
-                .UseUrls("http://*:81"/*, "https://*:443"*/)
+                .UseUrls("http://*:80"/*, "https://*:443"*/)
                 .UseStartup<Startup>();
     }
 }
