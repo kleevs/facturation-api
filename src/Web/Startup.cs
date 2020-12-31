@@ -72,7 +72,7 @@ namespace Web
             services.AddHttpContextAccessor();
             var healthchecks = services.AddHealthChecks();
 
-            if (isLocal) 
+            if (true/*isLocal*/) 
             {
                 services.AddScoped<Db.IProvider, Db.LocalProvider>();
                 services.AddDbContext<Db.LocalProvider>(options => options.UseInMemoryDatabase("database"));

@@ -1,8 +1,12 @@
-﻿@using  FacturationApi.Models;
-@{
+﻿@using System.Linq;
+@using FacturationApi.Models;
+@model FacturationApi.Models.IFacturePdf;
+
+@{ 
     IFacturePdf pdf = Model;
-    var isNoTva = pdf.Services.Any<dynamic>(_ => _.Tva == 0);
+    var isNoTva = pdf.Services.Where(_ => _.Tva == 0).Count() > 0;
     var specifier = "N";
+    var dateFormat = "dd/MM/yyyy";
 }
 
 <html>
@@ -111,27 +115,27 @@
 </head>
 <body>
     <div class="me">
-        <div>@pdf.MyLastName @pdf.MyFirstName</div>
-        <div>@pdf.MyAddress</div>
-        <div>@pdf.MyPostCode @pdf.MyCity</div>
-        <div>@pdf.MyPhone</div>
-        <div>@pdf.MyEmail</div>
-        <div>N° TVA Intracommunautaire : @pdf.MyNumeroTva</div>
-        <div>Siret : @pdf.MySiret</div>
+        <div>@(pdf.MyLastName) @(pdf.MyFirstName)</div>
+        <div>@(pdf.MyAddress)</div>
+        <div>@(pdf.MyPostCode) @(pdf.MyCity)</div>
+        <div>@(pdf.MyPhone)</div>
+        <div>@(pdf.MyEmail)</div>
+        <div>N° TVA Intracommunautaire : @(pdf.MyNumeroTva ?? string.Empty)</div>
+        <div>Siret : @(pdf.MySiret ?? string.Empty)</div>
     </div>
 
     <div class="client">
-        <div>@pdf.RaisonSociale</div>
-        <div>@pdf.LastName @pdf.FirstName</div>
-        <div>@pdf.Street</div>
-        <div>@pdf.ZipCode @pdf.City</div>
+        <div>@(pdf.RaisonSociale)</div>
+        <div>@(pdf.LastName) @(pdf.FirstName)</div>
+        <div>@(pdf.Street)</div>
+        <div>@(pdf.ZipCode) @(pdf.City)</div>
     </div>
 
     <div class="numero-facture">
-        FACTURE N° @pdf.NumeroFacture
+        FACTURE N° @(pdf.NumeroFacture)
     </div>
     <div class="date-creation">
-        Date de création : @pdf.DateCreation?.ToShortDateString()
+        Date de création : @(pdf.DateCreation?.ToString(dateFormat))
     </div>
     <table class="table">
         <thead>
@@ -144,29 +148,29 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var service in pdf.Services)
-            {
+                @foreach (var service in pdf.Services) 
+                { 
                 <tr>
-                    <td class="description">@service.Description</td>
-                    <td>@service.Quantity?.ToString(specifier)</td>
-                    <td>@service.Price?.ToString(specifier)</td>
-                    <td>@(service.Tva == 0 ? "0*" : service.Tva?.ToString(specifier)) %</td>
-                    <td>@((service.Quantity * service.Price)?.ToString(specifier))</td>
+                    <td class="description">@(service.Description)</td>
+                    <td>@(service.Quantity?.ToString(specifier))</td>
+                    <td>@(service.Price?.ToString(specifier))</td>
+                    <td>@((service.Tva == 0 ? "0*" : service.Tva?.ToString(specifier))) %</td>
+                    <td>@(((service.Quantity * service.Price)?.ToString(specifier)))</td>
                 </tr>
-            }
+                }
         </tbody>
     </table>
     <div class="footer">
         <div class="legend">
-            @if (isNoTva)
+            @if (isNoTva) 
             {
                 <div>*TVA non applicable, article 293 B du CGI.</div>
             }
         </div>
         <div class="paiement">
             <p>
-                Conditions de paiement : @pdf.MontantTTC.ToString(specifier) € à
-                payer avant le : @pdf.DateEcheance?.ToShortDateString() par virement.
+                Conditions de paiement : @(pdf.MontantTTC.ToString(specifier)) € à
+                payer avant le : @(pdf.DateEcheance?.ToString(dateFormat)) par virement.
             </p>
         </div>
 
@@ -177,9 +181,9 @@
                 <div>Total TTC :</div>
             </div>
             <div class="value">
-                <div>@pdf.MontantHT.ToString(specifier) €</div>
-                <div>@pdf.MontantTva.ToString(specifier) €</div>
-                <div>@pdf.MontantTTC.ToString(specifier) €</div>
+                <div>@(pdf.MontantHT.ToString(specifier)) €</div>
+                <div>@(pdf.MontantTva.ToString(specifier)) €</div>
+                <div>@(pdf.MontantTTC.ToString(specifier)) €</div>
             </div>
         </div>
         <div class="penalite">
